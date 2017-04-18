@@ -1,4 +1,4 @@
-# OnlineMarket
+# Online Market
 
 Il progetto consiste nella realizzazione di un sito web denominato Online Market, e sviluppato tramite il linguaggio di programmazione orientato agli oggetti Ruby (per la parte back-end) e le tecnologie HTML5, CSS3, JavaScript e JQuery (per la parte front-end), che permette di acquistare prodotti di genere alimentare.
 
