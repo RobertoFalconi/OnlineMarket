@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		
+		<!--
+		TITOLO, FONT 3D E IMPORT DI JQUERY
+		(SMARTPHONE E DESKTOP)
+		-->
+		<title>Online Market</title>
+		
+		<link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Raleway&effect=3d" rel="stylesheet">
+		<link rel=stylesheet href="styles.css" type="text/css">
+		<meta charset="utf-8"/>
+		<script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+		</script>
+		
+		<!--
+		FUNZIONE  PER IL PASSAGGIO AD HEADER.SMALLER
+		(SMARTPHONE E DESKTOP)
+		-->
+		<script>
+			$(function() {
+				$(window).scroll(function() {
+					var scroll = $(window).scrollTop();
+					if (scroll >= 100) {
+						$(".header").addClass('smaller');
+						$(".col1").addClass('smaller');
+						$(".col3").addClass('smaller');
+						$(".trigram").addClass('smaller');
+						$(".basketIcon").addClass('smaller');
+						$(".buynow").addClass('smaller');
+					} else {
+						$(".header").removeClass("smaller");
+						$(".col1").removeClass("smaller");
+						$(".col3").removeClass("smaller");
+						$(".trigram").removeClass('smaller');
+						$(".basketIcon").removeClass('smaller');
+						$(".buynow").removeClass('smaller');
+        			}
+				});
+			});
+		</script>
+        
+		<!--
+		FUNZIONE JAVASCRIPT PER LA GENERAZIONE DI UN CODICE
+		(SMARTPHONE E DESKTOP)
+		-->
+		<script>
+			function makeID() {
+				var text = "";
+				var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+				for( var i=0; i < 5; i++ )
+					text += possible.charAt(Math.floor(Math.random() * possible.length));
+                
+                var codice = document.getElementById("codiceacquisto");
+                codice.innerHTML = text;
+				
+			}
+		</script>
+		
+        <!-- 
+        FUNZIONE PER IL DRAG & DROP 
+		(SMARTPHONE E DESKTOP)
+        -->
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+            
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+                ev.dataTransfer.effectAllowed = 'copy';
+            }
+            
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                var oggetto = document.getElementById(data);
+                
+                sommatoria = document.getElementById("sommatoria");
+                sommatoria.innerHTML = (parseFloat(sommatoria.innerHTML) + parseFloat(oggetto.dataset.prezzo)).toFixed(2);
+                
+                sommatoria_s = document.getElementById("sommatoriamobile");
+                sommatoria_s.innerHTML = (parseFloat(sommatoria_s.innerHTML) + parseFloat(oggetto.dataset.prezzo)).toFixed(2);
+                
+                update = document.getElementById(data+"quantity");
+                
+                if (update) {
+                    update.innerHTML = parseFloat(update.innerHTML) + 1;
+                } else {
+                    carrello = document.getElementById("dropzone");
+                    carrello.innerHTML += "<tr id=\"" + oggetto.id + "row\"><td>" + oggetto.dataset.nome + "</td><td>x<output id=\"" + data + "quantity\">1</td><td>" + oggetto.dataset.prezzo + "</td><td><a id=\"" + oggetto.id + "rowremove\" href=\"#\" style=\"text-decoration: none\" onclick=\"removeAll(this,event)\">x</a> <a id=\"" + oggetto.id + "rowremove\" href=\"#\" style=\"text-decoration: none\"onclick=\"removeOne(this,event)\">-</a></td></tr>";
+                }
+                
+                update_s = document.getElementById(data+"quantitymobile");
+                
+                if (update_s) {
+                    update_s.innerHTML = parseFloat(update_s.innerHTML) + 1;
+                } else {
+                    carrello = document.getElementById("dropzonemobile");
+                    carrello.innerHTML += "<tr id=\"" + oggetto.id + "rowmobile\"><td>" + oggetto.dataset.nome + "</td><td>x<output id=\"" + data + "quantitymobile\">1</td><td>" + oggetto.dataset.prezzo + "</td><td><a id=\"" + oggetto.id + "rowremovemobile\" href=\"#openCart\" style=\"text-decoration: none\" onclick=\"removeAll(this,event)\">x</a> <a id=\"" + oggetto.id + "rowremovemobile\" href=\"#openCart\" style=\"text-decoration: none\"onclick=\"removeOne(this,event)\">-</a></td></tr>";
+                }
+            }
+        </script>
+        
+        <!--
+        RIMOZIONE ARTICOLI DAL CARRELLO
+        -->
+        <script>
+            function removeAll(row, ev) {
+                if (!ev.target.id.includes("mobile")) {
+                    objectID = ev.target.id.replace('rowremove', '');
+                } else {
+                    objectID = ev.target.id.replace('rowremovemobile', '');
+                }
+                
+                oggetto = document.getElementById(objectID);
+                quantity = document.getElementById(objectID+"quantity");
+                quantity_s = document.getElementById(objectID+"quantitymobile");
+                sommatoria = document.getElementById("sommatoria");
+                sommatoria.innerHTML = (parseFloat(sommatoria.innerHTML) - parseFloat(oggetto.dataset.prezzo) * parseFloat(quantity.innerHTML)).toFixed(2);
+                sommatoria_s = document.getElementById("sommatoriamobile");
+                sommatoria_s.innerHTML = (parseFloat(sommatoria_s.innerHTML) - parseFloat(oggetto.dataset.prezzo) * parseFloat(quantity_s.innerHTML)).toFixed(2);
+                
+                var i = row.parentNode.parentNode.rowIndex;
+                document.getElementById('dropzone').deleteRow(i);
+                document.getElementById('dropzonemobile').deleteRow(i);
+            }
+            
+            function removeOne(row, ev){
+                if (!ev.target.id.includes("mobile")) {
+                    objectID = ev.target.id.replace('rowremove', '');
+                } else {
+                    objectID = ev.target.id.replace('rowremovemobile', '');
+                }
+                
+                oggetto = document.getElementById(objectID);
+                quantity = document.getElementById(objectID+"quantity");
+                quantity_s = document.getElementById(objectID+"quantitymobile");
+                sommatoria = document.getElementById("sommatoria");
+                sommatoria.innerHTML = (parseFloat(sommatoria.innerHTML) - parseFloat(oggetto.dataset.prezzo)).toFixed(2);
+                sommatoria_s = document.getElementById("sommatoriamobile");
+                sommatoria_s.innerHTML = (parseFloat(sommatoria_s.innerHTML) - parseFloat(oggetto.dataset.prezzo)).toFixed(2);
+                quantity.innerHTML = parseFloat(quantity.innerHTML) - 1;
+                quantity_s.innerHTML = parseFloat(quantity_s.innerHTML) - 1;
+                
+                if (parseFloat(quantity.innerHTML) == 0) {
+                    var i = row.parentNode.parentNode.rowIndex;
+                    document.getElementById('dropzone').deleteRow(i);
+                    document.getElementById('dropzonemobile').deleteRow(i);
+                } 
+            }
+        </script>
+	</head>
+	
+	<body>
+		
+		<!--
+		SIDENAV
+		(SMARTPHONE)
+		-->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<h1>Filtri</h1>
+			
+			<div class="bev">
+				<label for="BevandeCheck">Bevande</label>
+       			<input class="BevandeCheck" type="checkbox" name="BevandeCheck" value="1" checked/>
+   			</div>
+			
+			<script>
+			$(".BevandeCheck").click(function() {
+    			if($(this).is(":checked")) {
+					$(".BevandeCol").show();
+    			} else {
+					$(".BevandeCol").hide();
+    			}
+			});
+			</script>
+			
+			<div class="pas">
+				<label for="PastaCheck">Pasta</label>
+       			<input class="PastaCheck" type="checkbox" name="PastaCheck" value="1" checked/>
+   			</div>
+			
+			<script>
+			$(".PastaCheck").click(function() {
+    			if($(this).is(":checked")) {
+					$(".PastaCol").show();
+    			} else {
+					$(".PastaCol").hide();
+    			}
+			});
+			</script>
+			
+			<div class="dol">
+				<label for="DolciCheck">Dolci</label>
+       			<input class="DolciCheck" type="checkbox" name="DolciCheck" value="1" checked/>
+   			</div>
+			
+			<script>
+			$(".DolciCheck").click(function() {
+    			if($(this).is(":checked")) {
+					$(".DolciCol").show();
+    			} else {
+					$(".DolciCol").hide();
+    			}
+			});
+			</script>
+		</div>
+		
+		<script>
+			function openNav() {
+				document.getElementById("mySidenav").style.width = "200px";
+			}
+			
+			function closeNav() {
+				document.getElementById("mySidenav").style.width = "0";
+			}
+		</script>
+		
+		<!--
+		HEADER CON TRIGRAM, CARRELLO E BUY NOW
+		(SMARTPHONE)
+		-->
+		<div class="header">
+            <div class="trigram" id="myTrigram">
+				<input type="button" value="&#9776" onclick="openNav()" style="background-color: transparent; border-color: transparent; cursor: default; font-size: 30px; color:white;"/>
+			</div>
+			
+			<div class="font-effect-3d"> 
+				<h1 id="logo">OnlineMarket</h1>
+			</div>
+			
+            <div class="basketIcon" id="myBasketIcon" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<a href="#openCart"><input type="image" src="img/shopping_cart.png" height="42" width="42" value="" onclick="showDiv()" style="background-color: transparent; border-color: transparent; cursor: default; font-size : 30px; color:white"/></a>
+            </div>
+            <div id="openCart" class="modalCart">
+                <div>
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h1>Carrello</h1>
+                    <table id="dropzonemobile" fitColumns="true">
+                        <tr>
+                            <th width=140 align="left"><b>Nome</b></th>
+                            <th width=60 align="left"><b>&#35;</b></th>
+                            <th width=60 align="left"><b>&#0128;</b></th>
+                        </tr>
+                    </table>
+                    <p><b>Totale:</b> &#0128;<output id="sommatoriamobile">0.00</output></p>
+                    <p><i>Trascina gli articoli sopra l'icona del carrello</i></p>
+					</div>
+				</div>
+			
+				<a href="#openModal" onclick="makeID();"><input class="buynow" type="image" src="img/paypal.png" onclick="makeID()" height="25px" width="80px" style="background-color: transparent; border-color: transparent; font-size: 30px;"/></a>
+			
+				<div id="openModal" class="modalDialog">
+					<div>
+						<a href="#close" title="Close" class="close">X</a>
+						<h2>Pagamento completato!</h2>
+						<p>Grazie per aver acquistato presso Online Market!</p>
+						<p>Recati presso il punto vendita più vicino presentando il codice: <output id="codiceacquisto"></output>, la tua spesa ti sta già aspettando!</p>
+					</div>
+				</div>
+			
+            
+		</div>
+	
+		<!--
+		FILTRI 
+		(DESKTOP)
+		-->
+		<div class="col1">
+			<h1>Filtri</h1>
+			
+			<div class="bev">
+				<label for="BevandeCheck">Bevande</label>
+       			<input class="BevandeCheck" type="checkbox" name="BevandeCheck" value="1" checked/>
+   			</div>
+			
+			<script>
+			$(".BevandeCheck").click(function() {
+    			if($(this).is(":checked")) {
+					$(".BevandeCol").show();
+    			} else {
+					$(".BevandeCol").hide();
+    			}
+			});
+			</script>
+			
+			<div class="pas">
+				<label for="PastaCheck">Pasta</label>
+       			<input class="PastaCheck" type="checkbox" name="PastaCheck" value="1" checked/>
+   			</div>
+			
+			<script>
+			$(".PastaCheck").click(function() {
+    			if($(this).is(":checked")) {
+					$(".PastaCol").show();
+    			} else {
+					$(".PastaCol").hide();
+    			}
+			});
+			</script>
+			
+			<div class="dol">
+				<label for="DolciCheck">Dolci</label>
+       			<input class="DolciCheck" type="checkbox" name="DolciCheck" value="1" checked/>
+   			</div>
+			
+			<script>
+			$(".DolciCheck").click(function() {
+    			if($(this).is(":checked")) {
+					$(".DolciCol").show();
+    			} else {
+					$(".DolciCol").hide();
+    			}
+			});
+			</script>
+			
+		</div>
+		
+		<!--
+		PRODOTTI 
+		(SMARTPHONE DESKTOP)
+		-->
+		<div class="col2" ondragstart="drag(event)">
+			<h1>Prodotti</h1>
+			<div class="BevandeCol">
+            <h3>Bevande</h3>
+                <div id="cola" class="item" draggable="true" data-nome="Coca-Cola 1.5L" data-prezzo="0.79">
+                    <img class="img-responsive" src="img/coke.jpg" alt="" draggable="false">
+                    <p>Coca-Cola 1.5L</p>
+                    <p>Prezzo: &#0128;0.79</p>
+                </div>
+                <div id="fanta" class="item" draggable="true" data-nome="Fanta 1.5L" data-prezzo="0.79">
+                    <img class="img-responsive" src="img/fanta.png" alt="" draggable="false">
+                    <p>Fanta 1.5L</p>
+                    <p>Prezzo: &#0128;0.79</p>
+                </div>
+			</div>
+			<div class="PastaCol">
+				<h3>Pasta</h3>
+				<div id="fusilli" class="item" draggable="true" data-nome="Fusilli Barilla 500g" data-prezzo="0.49">
+					<img class="img-responsive" src="img/fusilli.png" alt="" draggable="false">
+					<p>Fusilli Barilla 500g</p>
+					<p>Prezzo: &#0128;0.49</p>
+				</div>
+				<div id="penne" class="item" draggable="true" data-nome="Penne Rigate Barilla 500g" data-prezzo="0.49">
+					<img class="img-responsive" src="img/penne.png" alt="" draggable="false">
+					<p>Penne Rigate Barilla 500g</p>
+					<p>Prezzo: &#0128;0.49</p>
+				</div>
+				<div id="Rigatoni" class="item" draggable="true" data-nome="Rigatoni Barilla 500g" data-prezzo="0.49">
+					<img class="img-responsive" src="img/rigatoni.png" alt="" draggable="false">
+					<p>Rigatoni Barilla 500g</p>
+					<p>Prezzo: &#0128;0.49</p>
+				</div>
+				<div id="spaghetti" class="item" draggable="true" data-nome="Spaghetti Barilla 500g" data-prezzo="0.49">
+					<img class="img-responsive" src="img/spaghetti.png" alt="" draggable="false">
+					<p>Spaghetti Barilla 500g</p>
+					<p>Prezzo: &#0128;0.49</p>
+				</div>
+				<div id="vermicelli" class="item" draggable="true" data-nome="Vermicelli Barilla 500g" data-prezzo="0.49">
+					<img class="img-responsive" src="img/vermicelli.png" alt="" draggable="false">
+					<p>Vermicelli Barilla 500g</p>
+					<p>Prezzo: &#0128;0.49</p>
+				</div>
+				<div id="bucatini" class="item" draggable="true" data-nome="Bucatini Barilla 500g" data-prezzo="0.49">
+					<img class="img-responsive" src="img/bucatini.png" alt="" draggable="false">
+					<p>Bucatini Barilla 500g</p>
+					<p>Prezzo: &#0128;0.49</p>
+				</div>
+			</div>
+			<div class="DolciCol">
+				<h3>Dolci</h3>
+				<div id="pandoro" class="item" draggable="true" data-nome="Pandoro Bauli" data-prezzo="2.99">
+					<img class="img-responsive" src="img/pandoro.png" alt="" draggable="false">
+					<p>Pandoro Bauli</p>
+					<p>Prezzo: &#0128;2.99</p>
+				</div>
+				<div id="panettone" class="item" draggable="true" data-nome="Panettone Bauli" data-prezzo="2.99">
+					<img class="img-responsive" src="img/panettone.png" alt="" draggable="false">
+					<p>Panettone Bauli</p>
+					<p>Prezzo: &#0128;2.99</p>
+				</div>
+				</div>
+			</div>
+		
+		
+		<!--
+		CARRELLO E BUY NOW
+		(DESKTOP)
+		-->
+		<div class="col3" ondrop="drop(event)" ondragover="allowDrop(event)">
+			<h1>Carrello</h1>
+			<table id="dropzone" fitColumns="true">
+				<tr>
+                    <th width=140 align="left"><b>Nome</b></th>
+					<th width=60 align="left"><b>&#35;</b></th>
+					<th width=60 align="left"><b>&#0128;</b></th>
+                    <th></th>
+				</tr>
+            </table>
+            <p><b>Totale:</b> &#0128;<output id="sommatoria">0.00</output></p>
+            <p><i>Trascina qui gli articoli per aggiungerli al carrello</i></p>
+			
+			<a href="#openModal" onclick="makeID();"><input type="image" src="img/paypal.png" onclick="makeid()" height="27px" width="95px" style="background-color: transparent; border-color: transparent; font-size : 30px;"/></a>
+			
+			<div id="openModal" class="modalDialog">
+				<div>
+					<a href="#close" title="Close" class="close">X</a>
+					<h2>Pagamento completato!</h2>
+					<p>Grazie per aver acquistato presso Online Market!</p>
+					<p>Recati presso il punto vendita pi&ugrave; vicino presentando il codice: <output id="codiceacquisto"></output>, la tua spesa ti sta gi&agrave; aspettando!</p>
+					
+				</div>
+			</div>
+		</div>
+			
+	</body>
+</html>

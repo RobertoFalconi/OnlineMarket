@@ -1,0 +1,351 @@
+/* -----------------------
+STILE DI BASE DEL TESTO E DEI TITOLI
+------------------------*/
+body {
+	margin: 0;
+	padding: 0;
+	color: #333;
+	font: 1em/1.2 "Raleway", Helvetica, Arial, Geneva, sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin: 0 0 .5em;
+	font-weight: 500;
+	line-height: 1.1;
+	font-family: "Montserrat", sans-serif;
+}
+
+/* -----------------------
+STILE DI BASE DELLE IMMAGINI
+------------------------*/
+.img-responsive {
+	max-width: 100%; 
+}
+
+.item {
+    max-width: 50%;
+    float:left;
+    margin-bottom: 10px;
+    display:block;
+}
+
+.item p {
+    margin: 0;
+}
+
+/* -----------------------
+HEADER E HEADER.SMALLER
+(DESKTOP)
+------------------------*/
+
+.header {
+    width: 100%; /* larghezza */
+    height: 120px; /* altezza */
+    position: fixed; /* ancora l'header */
+    top: 0; /* ancora l'header ai bordi del browser */
+    left: 0; /* ancora l'header */
+    background-color: #4CAF50;
+    -webkit-transition: height 0.3s;
+    -moz-transition: height 0.3s;
+    -ms-transition: height 0.3s;
+    -o-transition: height 0.3s;
+    transition: height 0.3s;
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+.header h1#logo {
+    margin-top: 30px;
+	margin-left: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 50px;
+    color: white;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.header.smaller {
+    height: 70px;
+}
+.header.smaller h1#logo {
+    font-size: 30px;
+    margin-top: 15px;
+}
+
+.trigram {
+    display:none;
+}
+
+.basketIcon {
+    display: none;
+}
+
+.buynow {
+	display: none;
+}
+
+@media (min-width: 600px){
+	.col1 {
+		position: fixed;
+		float: left;
+		width: 20%;
+		top: 135px;
+		left: 2%;
+		font-size: 30px;
+		-webkit-transition: all 0.3s;
+    	-moz-transition: all 0.3s;
+    	-ms-transition: all 0.3s;
+		-o-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+	
+	.col1.smaller {
+		top: 85px;
+	}
+
+	.col2 {
+		float: left;
+		width: 50%;
+		margin-top: 130px;
+		margin-left: 25%;
+		
+	}
+
+	.col3 {
+		position: fixed;
+		float: left;
+		width: 20%;
+		top: 135px;
+		right: 2%;
+		-webkit-transition: all 0.3s;
+    	-moz-transition: all 0.3s;
+    	-ms-transition: all 0.3s;
+		-o-transition: all 0.3s;
+    	transition: all 0.3s;
+	}
+	
+	.col3.smaller {
+		top:85px;
+	}
+    
+    .modalCart {
+        display: none;
+    }
+
+}
+
+/* -----------------------
+HEADER E HEADER.SMALLER
+(SMARTPHONE)
+------------------------*/
+
+@media all and (max-width: 600px) {
+    .trigram {
+        color: white;
+        float: left;
+        margin-top: 33px;
+        margin-left: 20px;
+		margin-right: 10px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 30px;
+        display: flex;
+		-webkit-transition: all 0.3s;
+    	-moz-transition: all 0.3s;
+    	-ms-transition: all 0.3s;
+		-o-transition: all 0.3s;
+    	transition: all 0.3s;
+    }
+	
+	.trigram.smaller {
+		margin-top: 10px;
+	}
+    
+	.basketIcon {
+		display: flex;
+		float: right;
+		margin-top: -35px;
+		margin-right: 20px;
+	}
+	
+    .basketIcon.smaller {
+        float: right;
+        margin-top: -30px;
+		margin-right: 20px;
+        display: flex;
+    }
+	
+	.buynow {
+		margin-top: 10px;
+		display: flex;
+		float: right;
+	}
+
+	.buynow.smaller {
+		margin-top: 0px;
+		height: 23px;
+		width: 75px;
+	}
+    
+    .header h1#logo {
+		margin: 0 auto;
+        margin-right: 55px;
+		margin-top: 37px;
+		font-size: 35px;
+        text-align: center;
+    }
+    
+	.header.smaller h1#logo {
+		margin: 0 auto;
+        margin-right: 55px;
+		margin-top: 20px;
+        font-size: 25px;
+    }
+	
+    .header.smaller {
+        height: 75px;
+    }
+    
+    .col1 {
+        display: none;
+    }
+	
+	.col2 {
+		margin: 10px;
+        margin-top: 130px;
+	}
+    
+    .col3 {
+        display: none;
+    }
+    
+    .img-responsive {
+	   max-width: 100%; 
+    }
+
+    .modalCart {
+        position: fixed;
+        font-family: "Montserrat", sans-serif;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: auto;
+        opacity:0;
+        -webkit-transition: opacity 400ms ease-in;
+        -moz-transition: opacity 400ms ease-in;
+        transition: opacity 400ms ease-in;
+        pointer-events: none;
+    }
+
+    .modalCart:target {
+        opacity:1;
+        pointer-events: auto;
+    }
+
+    .modalCart > div {
+        width: 90%;
+        position: relative;
+        margin: 10% auto;
+        padding: 5px 20px 13px 20px;
+        border-radius: 10px;
+		color: black;
+        background: #4CAF50;
+		background: -moz-linear-gradient(#4CAF50, #999);
+		background: -webkit-linear-gradient(#4CAF50, #999);
+		background: -o-linear-gradient(#4CAF50, #999);
+    }
+}
+
+/* -----------------------
+SIDENAV (SMARTPHONE)
+------------------------*/
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+	font-size: 30px;
+    background-color: #4CAF50;
+    overflow: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 30px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+	  padding-top: 15px;
+	}
+  .sidenav a {
+	  font-size: 18px;
+	}
+}
+
+/* -----------------------
+CHECKOUT
+(SMARTPHONE E DESKTOP)
+------------------------*/
+
+.modalDialog {
+	position: fixed;
+	font-family: "Montserrat", sans-serif;
+	z-index: 99999;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #4CAF50;
+	background: -moz-linear-gradient(#4CAF50, #999);
+	background: -webkit-linear-gradient(#4CAF50, #999);
+	background: -o-linear-gradient(#4CAF50, #999);
+}
