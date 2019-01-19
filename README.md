@@ -1,9 +1,10 @@
 # Online Market
 
-SlideShare: https://www.slideshare.net/RobertoFalconi4/online-market-tired-of-waiting-for-your-courier  
-LinkedIn:  
-https://www.linkedin.com/in/federico-guidi/  
-https://www.linkedin.com/in/roberto-falconi/  
+# Useful links
+- Portfolio: http://www.robertodaguarcino.com  
+- LinkedIn: https://www.linkedin.com/in/roberto-falconi  
+- GitHub: https://github.com/RobertoFalconi  
+- SlideShare: https://www.slideshare.net/RobertoFalconi4  
   
 Il progetto consiste nella realizzazione di un sito web denominato Online Market e sviluppato tramite le tecnologie HTML5, CSS3, JavaScript e JQuery, che permette di acquistare prodotti di genere alimentare.
 
